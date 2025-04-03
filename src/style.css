@@ -1,5 +1,13 @@
+@font-face {
+  font-family: "VK Sans Display";
+  src: url("/VKSansDisplay-Medium.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "VK Sans Display", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
