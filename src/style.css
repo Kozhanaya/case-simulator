@@ -1,7 +1,6 @@
 @font-face {
   font-family: "VK Sans Display";
-  src: url("/VKSansDisplay-Medium.ttf")
-    format("truetype");
+  src: url("/VKSansDisplay-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
@@ -9,7 +8,7 @@
 :root {
   font-family: "VK Sans Display", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
 
   color: #FFFFFF;
 
@@ -22,9 +21,26 @@
 body {
   margin: 0;
   max-width: 360px;
-  min-height: 100vh;
+  min-height: 720px;
+  display: flex;
+}
 
+input, button {
+  font: inherit;
+  color: inherit;
+}
+
+button, input[type=checkbox] {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+#app {
   background-image: url('/bg.png');
   background-repeat: no-repeat;
   background-position: 40% 90%;
+  flex: 1;
 }
