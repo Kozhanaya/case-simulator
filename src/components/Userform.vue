@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UserformField from './UserformField.vue';
+import UserformCheckbox from './UserformCheckbox.vue';
 
 function submitForm(e: Event) {
   e.preventDefault()
@@ -23,13 +24,8 @@ function submitForm(e: Event) {
         :errorMessage="'Поле не должно быть пустым'"/>
       </div>
 
-      
-      <div class="agreement">
-        <div class="agreement__content">
-          <input class="agreement__checkbox" type="checkbox" id="userAgreement">
-          <span class="agreement__label">Соглашаюсь получать email-рассылки и с <a href="#">политикой</a> обработки персональных данных</span>
-        </div>
-      </div>
+
+      <UserformCheckbox class="agreement" />
 
 
       <div class="submit-btn">
@@ -45,34 +41,18 @@ function submitForm(e: Event) {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  margin-bottom: 18px;
 }
 
 .agreement {
   position: relative;
   z-index: 1;
-
-  &__content {
-    margin-top: 18px;
-    margin-bottom: 22px;
-    display: flex;
-    gap: 1rem;
-  }
-
-  &__checkbox {
-    width: 22px;
-    height: 22px;
-  }
-
-  &__label {
-    line-height: 110%;
-    font-size: 12px;
-    max-width: 225px;
-  }
 }
 
 .submit-btn {
   width: 100%;
   height: 44px;
+  margin-top: 22px;
   box-sizing: border-box;
   border-radius: 20px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.48) 100%);
