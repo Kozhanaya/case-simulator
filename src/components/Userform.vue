@@ -10,9 +10,17 @@ function submitForm(e: Event) {
 
 <template>
   <div>
-    <form action="">
+    <form @submit="submitForm">
       <div class="form-fields">
-        <UserformField class="form-fields__item" v-for="n in 5" />
+        <UserformField 
+        class="form-fields__item" 
+        v-for="n in 5" 
+        :key="n"
+        type="text"
+        placeholder="Something"
+        name="something"
+        :isValid="true"
+        :errorMessage="'Поле не должно быть пустым'"/>
       </div>
 
       
@@ -25,7 +33,7 @@ function submitForm(e: Event) {
 
 
       <div class="submit-btn">
-        <button class="submit-btn__btn" @click="submitForm">Продолжить</button>
+        <button class="submit-btn__btn">Продолжить</button>
         <div class="submit-btn__gradient-shadow"></div>
       </div>
     </form>

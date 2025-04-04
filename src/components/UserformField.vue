@@ -1,13 +1,20 @@
-<script setup>
+<script setup lang="ts">
+const props = defineProps({
+  type: { type: String, required: true },
+  placeholder: { type: String, required: true },
+  name: { type: String, required: true },
+  isValid: Boolean,
+  errorMessage: String,
+})
 </script>
 
 <template>
   <div class="form-field">
     <div class="form-field__field">
-      <input class="form-field__input" type="type" @input="" id="name" name="name" placeholder="Фамилия">
+      <input class="form-field__input" :type="props.type" @input="" :id="props.name" :name="props.name" :placeholder="props.placeholder">
     </div>
 
-    <span class="form-field__error" v-if="false">Поле обязательно для заполнения</span>
+    <span class="form-field__error" v-if="props.isValid">{{ props.errorMessage }}</span>
   </div>
 </template>
 
@@ -76,7 +83,6 @@
 
   &__error {
     font-size: 14px;
-    margin: 0;
     margin-top: 4px;
   }
 }
