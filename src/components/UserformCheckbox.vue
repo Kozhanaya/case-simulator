@@ -1,11 +1,14 @@
 <script setup lang="ts">
+function updateModel(e: Event) {
+  console.log((e.target as HTMLInputElement).checked)
+}
 </script>
 
 <template>
   <div class="form-checkbox">
     <label class="form-checkbox__content">
-      <input class="form-checkbox__checkbox" type="checkbox" id="userAgreement"
-        @change="(e) => { console.log((e.target as HTMLInputElement).checked) }">
+      <input class="form-checkbox__checkbox" type="checkbox" id="userAgreement" 
+      @change="updateModel">
       <span class="form-checkbox__label">Соглашаюсь получать email-рассылки и с <a href="#">политикой</a> обработки
         персональных данных</span>
     </label>
