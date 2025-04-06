@@ -1,4 +1,10 @@
 <script setup lang="ts">
+const props = defineProps({
+  name: { type: String, required: true },
+  isValid: Boolean,
+  errorMessage: String,
+})
+
 function updateModel(e: Event) {
   console.log((e.target as HTMLInputElement).checked)
 }
@@ -7,13 +13,14 @@ function updateModel(e: Event) {
 <template>
   <div class="form-checkbox">
     <label class="form-checkbox__content">
-      <input class="form-checkbox__checkbox" type="checkbox" id="userAgreement" 
-      @change="updateModel">
-      <span class="form-checkbox__label">Соглашаюсь получать email-рассылки и с <a href="#">политикой</a> обработки
-        персональных данных</span>
+      <input class="form-checkbox__checkbox" type="checkbox" :id="props.name" :name="props.name" @change="updateModel">
+
+      <span class="form-checkbox__label">
+        <slot></slot>
+      </span>
     </label>
 
-    <span class="form-checkbox__error" v-if="true">Вы должны ознакомиться</span>
+    <p class="form-checkbox__error" v-if="!props.isValid">{{ props.errorMessage }}</p>
   </div>
 </template>
 
@@ -55,7 +62,6 @@ function updateModel(e: Event) {
   }
 
   &__label {
-    line-height: 110%;
     font-size: 12px;
     max-width: 225px;
   }
@@ -63,6 +69,7 @@ function updateModel(e: Event) {
   &__error {
     font-size: 14px;
     margin-top: 8px;
+    margin-bottom: 0;
   }
 }
 </style>

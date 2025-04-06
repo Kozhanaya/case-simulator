@@ -48,7 +48,10 @@ const fieldConstructor = [
       </div>
 
 
-      <UserformCheckbox class="agreement" />
+      <UserformCheckbox name="agreement" class="agreement" :isValid="false"
+        errorMessage="Для продолжения необходимо согласиться с условиями использования">
+        Соглашаюсь получать email-рассылки и с <a href="#">политикой</a> обработки персональных данных
+      </UserformCheckbox>
 
 
       <div class="submit-btn">
