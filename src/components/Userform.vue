@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import UserformField from './UserformField.vue';
 import UserformCheckbox from './UserformCheckbox.vue';
+import UserformDropdown from './UserformDropdown.vue';
 
 function submitForm(e: Event) {
   e.preventDefault()
@@ -36,6 +37,8 @@ const fieldConstructor = [
     rules: {}
   },
 ]
+
+const selectOptions = ['Джун', 'Миддл', 'Синиор', 'Тимлид', 'Менеджер', 'Другое']
 </script>
 
 <template>
@@ -45,6 +48,9 @@ const fieldConstructor = [
         <UserformField class="form-fields__item" v-for="field, id in fieldConstructor" :key="id" type="text"
           :placeholder="field.placeholder" :name="field.name" :isValid="true"
           :errorMessage="'Поле не должно быть пустым'" />
+
+        <UserformDropdown placeholder="Уровень" :options="selectOptions" :isValid="true"
+          :errorMessage="'Выберите уровень'" />
       </div>
 
 
