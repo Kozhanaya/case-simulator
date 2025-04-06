@@ -6,22 +6,45 @@ function submitForm(e: Event) {
   e.preventDefault()
 
   console.log('submiting form...')
+  // fetch/axios/ajax here
 }
+
+const fieldConstructor = [
+  {
+    placeholder: 'Фамилия и имя',
+    name: 'name',
+    rules: {}
+  },
+  {
+    placeholder: 'Номер телефона',
+    name: 'phone',
+    rules: {}
+  },
+  {
+    placeholder: 'Электронная почта',
+    name: 'email',
+    rules: {}
+  },
+  {
+    placeholder: 'Компания',
+    name: 'company',
+    rules: {}
+  },
+  {
+    placeholder: 'Должность',
+    name: 'position',
+    rules: {}
+  },
+]
 </script>
 
 <template>
   <div>
     <form @submit="submitForm">
       <div class="form-fields">
-        <UserformField 
-        class="form-fields__item" 
-        v-for="n in 5" 
-        :key="n"
-        type="text"
-        placeholder="Something"
-        name="something"
-        :isValid="true"
-        :errorMessage="'Поле не должно быть пустым'"/>
+        <UserformField class="form-fields__item" v-for="field, id in fieldConstructor" :key="id" type="text"
+          :placeholder="field.placeholder" :name="field.name" :isValid="true"
+          :errorMessage="'Поле не должно быть пустым'" />
       </div>
 
 
@@ -42,6 +65,8 @@ function submitForm(e: Event) {
   flex-direction: column;
   gap: 14px;
   margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
 }
 
 .agreement {
@@ -111,7 +136,7 @@ function submitForm(e: Event) {
   &__gradient-shadow {
     width: 100%;
     height: 100%;
-    opacity: 50%;
+    opacity: 80%;
     position: absolute;
     top: 0;
     left: 0;

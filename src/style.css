@@ -7,7 +7,6 @@
 
 :root {
   font-family: "VK Sans Display", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
   font-weight: 500;
 
   color: #FFFFFF;
@@ -38,9 +37,14 @@ a {
   color: inherit;
 }
 
+p {
+  line-height: 110%;
+}
+
 #app {
   background-image: url('/bg.png');
   background-repeat: no-repeat;
   background-position: 40% 90%;
   flex: 1;
+  overflow-y: auto;
 }

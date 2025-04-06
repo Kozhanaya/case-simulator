@@ -25,7 +25,6 @@ import Userform from './components/Userform.vue';
 
   &__title {
     font-size: 18px;
-    line-height: 110%;
     margin-top: 0;
   }
 }

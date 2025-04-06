@@ -31,7 +31,6 @@
       font-weight: 500;
       font-size: 20px;
       color: #E9E9E9;
-      line-height: 110%;
       margin: 11px 0;
     }
   }
