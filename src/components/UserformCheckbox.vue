@@ -5,15 +5,18 @@ const props = defineProps({
   errorMessage: String,
 })
 
-function updateModel(e: Event) {
-  console.log((e.target as HTMLInputElement).checked)
-}
+const model = defineModel()
 </script>
 
 <template>
   <div class="form-checkbox">
     <label class="form-checkbox__content">
-      <input class="form-checkbox__checkbox" type="checkbox" :id="props.name" :name="props.name" @change="updateModel">
+      <input 
+        class="form-checkbox__checkbox" 
+        type="checkbox" 
+        :id="props.name" 
+        :name="props.name" 
+        @change="(e) => { model = (e.target as HTMLInputElement).checked }">
 
       <span class="form-checkbox__label">
         <slot></slot>
@@ -36,6 +39,7 @@ function updateModel(e: Event) {
 
   &__checkbox {
     width: 22px;
+    min-width: 22px;
     height: 22px;
     background-color: white;
     border-radius: 5px;

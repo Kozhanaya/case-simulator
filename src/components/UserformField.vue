@@ -6,12 +6,20 @@ const props = defineProps({
   isValid: Boolean,
   errorMessage: String,
 })
+
+const model = defineModel()
 </script>
 
 <template>
   <div class="form-field">
     <div class="form-field__field">
-      <input class="form-field__input" :type="props.type" @input="" :id="props.name" :name="props.name" :placeholder="props.placeholder">
+      <input 
+        class="form-field__input" 
+        :type="props.type" 
+        @input="(e) => { model = (e.target as HTMLInputElement).value }" 
+        :id="props.name" 
+        :name="props.name" 
+        :placeholder="props.placeholder">
     </div>
 
     <p class="form-field__error" v-if="!props.isValid">{{ props.errorMessage }}</p>

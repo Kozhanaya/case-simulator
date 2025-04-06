@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Ref } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
   placeholder: { type: String, required: true },
@@ -8,8 +8,8 @@ const props = defineProps({
   errorMessage: String,
 })
 
+const model = defineModel()
 const showOptions = ref(false)
-const selectedOption: Ref<String | Number | null> = ref(null)
 
 function toggleDropdown(e: Event) {
   const arrowBtn = (e.target as HTMLElement).querySelector('form-field__arrow-btn')
@@ -23,13 +23,13 @@ function toggleDropdown(e: Event) {
   <div class="form-field">
     <div class="form-field__dropdown" @click="toggleDropdown">
       <!-- select text -->
-      <span class="form-field__value" v-if="!selectedOption">{{ props.placeholder }}</span>
-      <span class="form-field__value" v-else>{{ selectedOption }}</span>
+      <span class="form-field__value" v-if="!model">{{ props.placeholder }}</span>
+      <span class="form-field__value" v-else>{{ model }}</span>
       <div class="form-field__arrow-btn"><img src="/arrow-down.svg" alt="Arrow down"></div>
 
       <!-- options -->
       <div class="form-field__dropdown-options options" v-if="showOptions">
-        <div class="options__item" v-for="o in props.options" @click="selectedOption = o">
+        <div class="options__item" v-for="o in props.options" @click="model = o">
           <span class="options__item-label">{{ o }}</span>
           <hr class="options__item-divider">
         </div>

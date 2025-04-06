@@ -1,61 +1,135 @@
 <script setup lang="ts">
+import { reactive, ref } from 'vue';
+import { useValidation } from '../composables/validation';
+import { type FormData } from '../composables/interfaces';
 import UserformField from './UserformField.vue';
 import UserformCheckbox from './UserformCheckbox.vue';
 import UserformDropdown from './UserformDropdown.vue';
 
+const formConstructor = {
+  textFields: [
+    {
+      labelText: 'Фамилия и имя',
+      name: 'name',
+      rules: {
+        required: true,
+        minLength: 2
+      }
+    },
+    {
+      labelText: 'Номер телефона',
+      name: 'phone',
+      customErrorMsg: 'Неверный формат номера телефона.',
+      rules: {
+        required: true,
+        maxLength: 12,
+        pattern: new RegExp('^(?:\\+7\\s?|8\\s?)\\(?\\d{3}\\)?(?:[\\-\\s]?\\d\\d\\d)(?:[\\-\\s]?\\d\\d){2}$', 'm'),
+      }
+    },
+    {
+      labelText: 'Электронная почта',
+      name: 'email',
+      customErrorMsg: 'Неверный формат электронной почты.',
+      rules: {
+        required: true,
+        pattern: new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'),
+      }
+    },
+    {
+      labelText: 'Компания',
+      name: 'company',
+      rules: {
+        required: true,
+      }
+    },
+    {
+      labelText: 'Должность',
+      name: 'position',
+      rules: {
+        required: true,
+      }
+    },
+  ],
+
+  dropdownMenus: [
+    {
+      labelText: "Уровень",
+      name: 'level',
+      options: ['Джун', 'Миддл', 'Синиор', 'Тимлид', 'Менеджер', 'Другое'],
+      rules: {
+        required: true,
+      }
+    }
+  ]
+}
+
+const allFields = formConstructor.textFields.concat(formConstructor.dropdownMenus)
+const { validateField, isFormValid, FormFieldsState } = useValidation(allFields)
+
+
+let formData: FormData = reactive({})
+allFields.forEach((field) => {
+  formData[field.name] = ''
+})
+
+const agreementChecked = ref(false)
+const isAgreementValid = ref(true)
+
+
 function submitForm(e: Event) {
   e.preventDefault()
+
+  console.log('validating form...')
+  validateForm()
+  
+  console.log('form is ' + (isFormValid.value ? 'valid' : 'invalid'))
+  if (!isFormValid && !agreementChecked) { return }
 
   console.log('submiting form...')
   // fetch/axios/ajax here
 }
 
-const fieldConstructor = [
-  {
-    placeholder: 'Фамилия и имя',
-    name: 'name',
-    rules: {}
-  },
-  {
-    placeholder: 'Номер телефона',
-    name: 'phone',
-    rules: {}
-  },
-  {
-    placeholder: 'Электронная почта',
-    name: 'email',
-    rules: {}
-  },
-  {
-    placeholder: 'Компания',
-    name: 'company',
-    rules: {}
-  },
-  {
-    placeholder: 'Должность',
-    name: 'position',
-    rules: {}
-  },
-]
 
-const selectOptions = ['Джун', 'Миддл', 'Синиор', 'Тимлид', 'Менеджер', 'Другое']
+function validateForm() {
+  allFields.forEach((field, id) => {
+    validateField(formData[field.name], field, id)
+  })
+
+  isAgreementValid.value = agreementChecked.value
+}
 </script>
 
 <template>
   <div>
     <form @submit="submitForm">
       <div class="form-fields">
-        <UserformField class="form-fields__item" v-for="field, id in fieldConstructor" :key="id" type="text"
-          :placeholder="field.placeholder" :name="field.name" :isValid="true"
-          :errorMessage="'Поле не должно быть пустым'" />
+        <UserformField 
+          class="form-fields__item" 
+          v-for="field, id in formConstructor.textFields" 
+          :key="id" 
+          type="text"
+          :placeholder="field.labelText" 
+          :name="field.name" 
+          :isValid="FormFieldsState[id].isValid"
+          :errorMessage="FormFieldsState[id].errorMsg" v-model="formData[field.name]" />
 
-        <UserformDropdown placeholder="Уровень" :options="selectOptions" :isValid="true"
-          :errorMessage="'Выберите уровень'" />
+        <UserformDropdown 
+          v-for="dropdown, id in formConstructor.dropdownMenus"
+          :key="id"
+          :placeholder="dropdown.labelText"
+          :options="dropdown.options"
+          :isValid="FormFieldsState[FormFieldsState.length - 1].isValid"
+          :errorMessage="FormFieldsState[FormFieldsState.length - 1].errorMsg"
+          v-model="formData['level']" />
       </div>
 
 
-      <UserformCheckbox name="agreement" class="agreement" :isValid="false"
-        errorMessage="Для продолжения необходимо согласиться с условиями использования">
+      <UserformCheckbox 
+        name="agreement"
+        class="agreement" 
+        :isValid="isAgreementValid"
+        errorMessage="Для продолжения необходимо согласиться с условиями использования"
+        v-model="agreementChecked">
         Соглашаюсь получать email-рассылки и с <a href="#">политикой</a> обработки персональных данных
       </UserformCheckbox>
 
