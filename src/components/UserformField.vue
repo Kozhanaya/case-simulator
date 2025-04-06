@@ -14,7 +14,7 @@ const props = defineProps({
       <input class="form-field__input" :type="props.type" @input="" :id="props.name" :name="props.name" :placeholder="props.placeholder">
     </div>
 
-    <span class="form-field__error" v-if="props.isValid">{{ props.errorMessage }}</span>
+    <p class="form-field__error" v-if="!props.isValid">{{ props.errorMessage }}</p>
   </div>
 </template>
 
@@ -84,6 +84,7 @@ const props = defineProps({
   &__error {
     font-size: 14px;
     margin-top: 4px;
+    margin-bottom: 0;
   }
 }
 </style>
