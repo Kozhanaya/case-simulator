@@ -12,7 +12,7 @@ const model = defineModel()
 const showOptions = ref(false)
 
 function toggleDropdown(e: Event) {
-  const arrowBtn = (e.target as HTMLElement).querySelector('form-field__arrow-btn')
+  const arrowBtn = (e.target as HTMLElement).querySelector('.form-field__arrow-btn')
   arrowBtn?.classList.toggle('form-field__arrow-btn_arrow-up')
 
   showOptions.value = !showOptions.value
