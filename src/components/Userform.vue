@@ -170,7 +170,7 @@ function validateForm() {
   // transition: all 250ms ease-out;
 
   &:hover {
-    background: #5324ed99;
+    background: #3C0AE299;
     border-radius: 20px;
   }
 

@@ -3,6 +3,7 @@
   src: url("/VKSansDisplay-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -42,7 +43,7 @@ p {
 }
 
 #app {
-  background-image: url('/bg.png');
+  background-image: url('/bg.jpg');
   background-repeat: no-repeat;
   background-position: 40% 90%;
   flex: 1;
